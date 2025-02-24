@@ -11,7 +11,7 @@ const MongoClient=require('mongodb').MongoClient;
 const url='mongodb://127.0.0.1:27017';
 const dbName='HospitalVentilators';
 let db;
-MongoClient.connect(url,function(err,client){
+MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true } ,function(err,client){
     if(err) return console.log(err);
     db=client.db(dbName);
     console.log(`Connected to the database:${url}`);
@@ -88,4 +88,5 @@ app.delete('/deleteventilators',middleware.checkToken,function(req,res){
         res.json("ventilator deleted");
     });
 });
-app.listen(1000); 
+
+module.exports = app; 
